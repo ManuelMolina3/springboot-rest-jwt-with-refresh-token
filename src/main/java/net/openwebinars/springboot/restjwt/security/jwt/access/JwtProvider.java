@@ -32,8 +32,7 @@ public class JwtProvider {
     private String jwtSecret;
 
     @Value("${jwt.duration}")
-    private int jwtLifeInDays;
-    //private int jwtLifeInMinutes;
+    private int jwtLifeInMin;
 
     private JwtParser jwtParser;
 
@@ -65,8 +64,7 @@ public class JwtProvider {
                 Date.from(
                         LocalDateTime
                                 .now()
-                                .plusDays(jwtLifeInDays)
-                                //.plusMinutes(jwtLifeInMinutes)
+                                .plusMinutes(jwtLifeInMin)
                                 .atZone(ZoneId.systemDefault())
                                 .toInstant()
                 );
@@ -110,7 +108,6 @@ public class JwtProvider {
             log.info("Error con el token: " + ex.getMessage());
             throw new JwtTokenException(ex.getMessage());
         }
-        //return false;
 
     }
 
